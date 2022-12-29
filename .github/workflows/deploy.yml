@@ -1,0 +1,17 @@
+name: Automated Deployment
+on: [push]
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: SSH Remote Command
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          script: |
+            cd ~/upy/ad-ssh-action
+            chmod +x ./deploy.sh
+            ./deploy.sh
